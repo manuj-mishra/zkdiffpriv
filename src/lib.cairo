@@ -59,16 +59,16 @@ fn generate_bounded_tensor() -> Tensor<u32> {
 fn tensor_1D() -> Tensor<u32> {
     let mut shape = ArrayTrait::new();
     shape.append(3);
-		
+
     let mut data = ArrayTrait::new();
     data.append(0);
     data.append(1);
     data.append(2);
 
     let extra = Option::<ExtraParams>::None(());
-		
+
     let tensor = TensorTrait::<u32>::new(shape.span(), data.span(), extra);
-		
+
     return tensor;
 }
 
