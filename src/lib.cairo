@@ -6,17 +6,29 @@ use array::SpanTrait;
 
 use orion::operators::tensor::implementations::impl_tensor_u32::Tensor_u32;
 use orion::operators::tensor::core::{Tensor, ExtraParams, TensorTrait};
-// use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
-use orion::numbers::fixed_point::core::{FixedType};
-// use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl};
+use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
+use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, PI};
 use orion::numbers::signed_integer::{integer_trait::IntegerTrait};
 
+// use orion::numbers::fixed_point::implementations::impl_16x16::{
+//     PI
+// };
+
 // use core::{BoundedTensor, BoundedTensorTrait, get_q};
-use core::{get_q};
+// use core::{get_q};
 use util::{all};
 
+
+// #[test]
+// #[available_gas(1000000)]
+// fn pi_is_pi() {
+//     let approx_pi = FixedTrait::from_unscaled_felt(3.14159);
+//     assert(PI - approx_pi < 0.01, 'PI is not PI');
+// }
+
+
 #[test]
-#[available_gas(2000000)]
+#[available_gas(1000000)]
 fn generate_bounded_tensor() -> Tensor<u32> {
     // TODO: bounded tensors
     // let btensor = example_btensor();
