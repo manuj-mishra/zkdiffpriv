@@ -60,6 +60,7 @@ fn tensor_1D() -> Tensor<u32> {
     return tensor;
 }
 
+
 // // 1D bounded tensor generator
 // fn example_btensor() -> BoundedTensor<u32> {
 //     let mut shape = ArrayTrait::new();
