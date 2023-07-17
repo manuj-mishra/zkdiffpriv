@@ -9,6 +9,6 @@ orion = { git = "https://github.com/gizatechxyz/onnx-cairo" }
 # alexandria = { git = "https://github.com/keep-starknet-strange/alexandria.git" }
 
 
-[[bin]]
-name = "zkdiffprivlib"
-path = "src/lib.cairo"
+# [[bin]]
+# name = "zkdiffprivlib"
+# path = "src/lib.cairo"
