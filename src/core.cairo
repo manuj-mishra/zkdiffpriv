@@ -43,10 +43,10 @@ fn get_q(x: Tensor<u32>) -> Tensor<u32> {
     return x.reduce_sum(0, false);
 }
 
-fn init_priv_param(a: FixedType, b:FixedType, q:FixedType, eps: FixedType) -> FixedType {
-    let sq_res =  (q / eps) * (b - a + (q / 2);
-    return sq_res * sq_res;
-}
+// fn init_priv_param(a: FixedType, b:FixedType, q:FixedType, eps: FixedType) -> FixedType {
+//     let sq_res =  (q / eps) * (b - a + (q / 2);
+//     return sq_res * sq_res;
+// }
 
 // fn optimal_priv_param(i: Tensor<u32>, w: Tensor<u32>, b: Tensor<u32>) -> Tensor<u32> {
 //     let x = NNTrait::linear(i, w, b);
