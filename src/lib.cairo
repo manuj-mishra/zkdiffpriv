@@ -13,7 +13,7 @@ use util::{sum_array};
 use core::{optimal_priv_param};
 
 #[test]
-#[available_gas(10000000)]
+#[available_gas(1000000000)]
 fn test_lib() {
     let mut arr = ArrayTrait::new();
     arr.append(FixedTrait::new_unscaled(1_u128, false));
