@@ -10,9 +10,10 @@ use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, P
 use orion::numbers::signed_integer::{integer_trait::IntegerTrait};
 
 use util::{sum_array};
+use core::{optimal_priv_param};
 
 #[test]
-#[available_gas(2000000)]
+#[available_gas(10000000)]
 fn test_lib() {
     let mut arr = ArrayTrait::new();
     arr.append(FixedTrait::new_unscaled(1_u128, false));
@@ -21,15 +22,16 @@ fn test_lib() {
     arr.append(FixedTrait::new_unscaled(8_u128, false));
 
     let q = get_q(arr);
+    'This is true sum'.print();
     q.print();
 
-    let t = FixedTrait::new_unscaled(16_u128, false);
-    t.print();
-
-    let p = 
-
-    // assert(q == t, 'q is not 16');
-
+    let p = optimal_priv_param(
+        FixedTrait::new_unscaled(1_u128, false),
+        FixedTrait::new_unscaled(11_u128, false),
+        FixedTrait::new_unscaled(11_u128, false),
+        FixedTrait::new_unscaled(1_u128, false) / FixedTrait::new_unscaled(100_u128, false));
+    'This is sigma'.print();
+    p.print()
 }
 
 
