@@ -1,9 +1,10 @@
 use orion::operators::tensor::implementations::impl_tensor_u32::Tensor_u32;
 use orion::operators::tensor::core::{Tensor, ExtraParams, TensorTrait};
 use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
-use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Div, FP8x23PartialOrd};
+use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Mul, FP8x23Div, FP8x23PartialOrd};
 use array::ArrayTrait;
 
+const TWO: u128 = 16777216;
 
 fn all(arr: Tensor<u32>) -> bool {
     return arr.min() == 1;
@@ -28,11 +29,15 @@ fn C(a: FixedType, b: FixedType, s: FixedType, sigma: FixedType) -> FixedType {
 }
 
 fn delta_C(a: FixedType, b: FixedType, delta_Q: FixedType, sigma: FixedType) -> FixedType {
-    if delta_Q <= ((b - a) / FixedTrait::new(ONE + ONE, false)) {
+    if delta_Q <= ((b - a) / FixedTrait::new(TWO, false)) {
         return C(a, b, a, sigma) / C(a, b, a + delta_Q, sigma);
     }
 
-    return C(a, b, a, sigma) / C(a, b, (b + a) / FixedTrait::new(ONE + ONE, false), sigma);
+    return C(a, b, a, sigma) / C(a, b, (b + a) / FixedTrait::new(TWO, false), sigma);
+}
+
+fn sigma_0(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: FixedType) -> FixedType {
+    return ((((b - a) + (delta_Q / FixedTrait::new(TWO, false))) * delta_Q) / epsilon).sqrt();
 }
 
 fn phi(z: FixedType) -> FixedType {
