@@ -1,2 +1,2 @@
-# zkdiffpriv
-Zero knowledge proofs of differential privacy mechanisms
+# 𝛿z
+The first implementation of zero-knowledge differential privacy.
