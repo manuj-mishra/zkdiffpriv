@@ -13,8 +13,8 @@ Delta Z is a completely trustless DP solution. We have have [implemented key alg
 
 Architecture Diagram:
 
-[Architecture Diagram](./architecture.png)
+![Architecture Diagram](./architecture.png)
 
 Differential Privacy summarised in one image:
 
-[Differential Privacy summarised in one image](./differential-privacy-summary.png)
+![Differential Privacy summarised in one image](./differential-privacy-summary.png)
