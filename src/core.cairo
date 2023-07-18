@@ -44,8 +44,7 @@ fn _erf_sum(z: FixedType, n: u128, acc: FixedType) -> FixedType {
 // Helper function to calculate inner product of erf function
 // TODO: this always returns 0
 fn _erf_prod(z: FixedType, k: u128, acc: FixedType) -> FixedType {
-    let z_sq = z * z;
-    let neg_z_sq = FixedTrait::from_felt(-1 * z_sq.into());
+    let neg_z_sq = - (z * z);
     let new_acc = (acc * neg_z_sq) / FixedTrait::new_unscaled(k, false);
 
     if (k == 1_u128) {
