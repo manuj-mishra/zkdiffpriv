@@ -6,7 +6,7 @@ use array::SpanTrait;
 use debug::PrintTrait;
 
 use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
-use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Mul, FP8x23Div, FP8x23PartialOrd, FP8x23PartialEq, FP8x23Print};
+use orion::numbers::fixed_point::implementations::impl_16x16::{FP16x16Impl, ONE, PI, FP16x16Add, FP16x16AddEq, FP16x16Sub, FP16x16Mul, FP16x16Div, FP16x16PartialOrd, FP16x16PartialEq, FP16x16Print};
 use orion::numbers::signed_integer::{integer_trait::IntegerTrait};
 
 use util::{sum_array};
@@ -31,7 +31,7 @@ fn test_lib() {
     let a = FixedTrait::new_unscaled(1_u128, false);
     let b = FixedTrait::new_unscaled(11_u128, false);
     let del_q = b - a;
-    let eps = FixedTrait::new_unscaled(1_u128, false) / FixedTrait::new_unscaled(10_u128, false);
+    let eps = FixedTrait::new_unscaled(1_u128, false) / FixedTrait::new_unscaled(1000_u128, false);
 
     let p = optimal_priv_param(a, b, del_q, eps).sqrt();
 

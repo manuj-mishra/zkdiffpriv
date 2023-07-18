@@ -1,8 +1,8 @@
 use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
-use orion::numbers::fixed_point::implementations::impl_8x23::{ONE, PI};
-use orion::numbers::fixed_point::implementations::impl_8x23::{
-    FP8x23Impl, FP8x23Add, FP8x23AddEq, FP8x23Into, FP8x23Print, FP8x23PartialEq, FP8x23Sub,
-    FP8x23SubEq, FP8x23Mul, FP8x23MulEq, FP8x23Div, FP8x23DivEq, FP8x23PartialOrd, FP8x23Neg
+use orion::numbers::fixed_point::implementations::impl_16x16::{ONE, PI};
+use orion::numbers::fixed_point::implementations::impl_16x16::{
+    FP16x16Impl, FP16x16Add, FP16x16AddEq, FP16x16Into, FP16x16Print, FP16x16PartialEq, FP16x16Sub,
+    FP16x16SubEq, FP16x16Mul, FP16x16MulEq, FP16x16Div, FP16x16DivEq, FP16x16PartialOrd, FP16x16Neg
 };
 
 use traits::{Into, TryInto};

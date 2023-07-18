@@ -1,7 +1,7 @@
 use orion::operators::tensor::implementations::impl_tensor_u32::Tensor_u32;
 use orion::operators::tensor::core::{Tensor, ExtraParams, TensorTrait};
 use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
-use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Mul, FP8x23Div, FP8x23PartialOrd};
+use orion::numbers::fixed_point::implementations::impl_16x16::{FP16x16Impl, ONE, PI, FP16x16Add, FP16x16AddEq, FP16x16Sub, FP16x16Mul, FP16x16Div, FP16x16PartialOrd};
 use array::ArrayTrait;
 use debug::PrintTrait;
 
