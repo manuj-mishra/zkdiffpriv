@@ -55,7 +55,13 @@ fn _erf_prod(z: FixedType, k: u128, acc: FixedType) -> FixedType {
 }
 
 fn C(a: FixedType, b: FixedType, s: FixedType, sigma: FixedType) -> FixedType {
-    return FixedTrait::new(ONE, false) / (normcdf(b, s, sigma) - normcdf(a, s, sigma));
+
+    let diff = normcdf(b, s, sigma) - normcdf(a, s, sigma);
+    //TODO: this should not be manual fix
+    if diff == (FixedTrait::new(0, false)) {
+        return FixedTrait::new_unscaled(1_u128, false);
+    }
+    return FixedTrait::new(ONE, false);
 }
 
 fn delta_C(a: FixedType, b: FixedType, delta_Q: FixedType, sigma: FixedType) -> FixedType {

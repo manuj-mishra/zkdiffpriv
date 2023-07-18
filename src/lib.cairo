@@ -22,16 +22,16 @@ fn test_lib() {
     arr.append(FixedTrait::new_unscaled(8_u128, false));
 
     let q = get_q(arr);
-    'This is true sum'.print();
-    q.print();
 
-    let p = optimal_priv_param(
-        FixedTrait::new_unscaled(1_u128, false),
-        FixedTrait::new_unscaled(11_u128, false),
-        FixedTrait::new_unscaled(11_u128, false),
-        FixedTrait::new_unscaled(1_u128, false) / FixedTrait::new_unscaled(100_u128, false));
+    let a = FixedTrait::new_unscaled(1_u128, false);
+    let b = FixedTrait::new_unscaled(11_u128, false);
+    let del_q = b - a;
+    let eps = FixedTrait::new_unscaled(1_u128, false) / FixedTrait::new_unscaled(10_u128, false);
+
+    let p = optimal_priv_param(a, b, del_q, eps);
+
     'This is sigma'.print();
-    p.print()
+    p.mag.print()
 }
 
 
