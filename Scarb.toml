@@ -1,9 +1,12 @@
 [package]
 name = "zkdiffpriv"
 version = "0.1.0"
+description = "Zero knowledge proofs of differential privacy mechanisms"
+homepage = "https://github.com/manuj-mishra/zkdiffpriv"
 
 [dependencies]
 starknet = "=2.0.1"
 orion = { git = "https://github.com/gizatechxyz/onnx-cairo" }
 
 [[target.starknet-contract]]
+allowed-libfuncs-list.name = "all"
