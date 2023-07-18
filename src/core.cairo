@@ -5,15 +5,13 @@ use orion::numbers::fixed_point::implementations::impl_8x23::{
     FP8x23SubEq, FP8x23Mul, FP8x23MulEq, FP8x23Div, FP8x23DivEq, FP8x23PartialOrd, FP8x23Neg
 };
 
-use debug::PrintTrait;
 use traits::{Into, TryInto};
+use debug::PrintTrait;
+
 
 const TWO: u128 = 16777216;
 
-// // We use the 'sum' query as an example
-// fn get_q(x: Array<u32>) -> Array<u32> {
-//     return x.reduce_sum(0, false);
-// }
+
 
 // CDF of a Gaussian distribution
 fn normcdf(x: FixedType, mu: FixedType, std: FixedType) -> FixedType {
@@ -25,16 +23,14 @@ fn normcdf(x: FixedType, mu: FixedType, std: FixedType) -> FixedType {
 
 // Approximation of the Gauss error function
 fn erf(z: FixedType) -> FixedType {
-    let two = FixedTrait::new_unscaled(2_u128, false);
-    let coef = two / FixedTrait::new(PI, false).sqrt();
+    let coef = FixedTrait::new_unscaled(2_u128, false) / FixedTrait::new(PI, false).sqrt();
     let taylor = _erf_sum(z, 5, FixedTrait::new(0, false));
     return coef * taylor;
 }
 
 // Helper function to calculate Taylor series of erf function
 fn _erf_sum(z: FixedType, n: u128, acc: FixedType) -> FixedType {
-    let div_u128 = (2_u128 * n) + 1_u128;
-    let coef = z / FixedTrait::new_unscaled(div_u128, false);
+    let coef = z / FixedTrait::new_unscaled((2_u128 * n) + 1_u128, false);
     let prod = _erf_prod(z, 3, FixedTrait::new(ONE, false));
     let new_acc = acc + (coef * prod);
 
@@ -46,12 +42,12 @@ fn _erf_sum(z: FixedType, n: u128, acc: FixedType) -> FixedType {
 }
 
 // Helper function to calculate inner product of erf function
+// TODO: this always returns 0
 fn _erf_prod(z: FixedType, k: u128, acc: FixedType) -> FixedType {
-    let z_sq = z * z;
-    let neg_z_sq = FixedTrait::from_felt(-1 * z_sq.into());
+    let neg_z_sq = - (z * z);
     let new_acc = (acc * neg_z_sq) / FixedTrait::new_unscaled(k, false);
 
-    if (k == 0_u128) {
+    if (k == 1_u128) {
         return new_acc;
     }
 
@@ -59,14 +55,20 @@ fn _erf_prod(z: FixedType, k: u128, acc: FixedType) -> FixedType {
 }
 
 fn C(a: FixedType, b: FixedType, s: FixedType, sigma: FixedType) -> FixedType {
-    return FixedTrait::new(ONE, false) / (normcdf(b, s, sigma) - normcdf(a, s, sigma));
+
+    let diff = normcdf(b, s, sigma) - normcdf(a, s, sigma);
+    //TODO: this should not be manual fix
+    if diff == (FixedTrait::new(0, false)) {
+        return FixedTrait::new_unscaled(1_u128, false);
+    }
+    return FixedTrait::new(ONE, false);
 }
 
 fn delta_C(a: FixedType, b: FixedType, delta_Q: FixedType, sigma: FixedType) -> FixedType {
+    assert(a != b, 'a cannot equal b');
     if delta_Q <= ((b - a) / FixedTrait::new(TWO, false)) {
         return C(a, b, a, sigma) / C(a, b, a + delta_Q, sigma);
     }
-
     return C(a, b, a, sigma) / C(a, b, (b + a) / FixedTrait::new(TWO, false), sigma);
 }
 
@@ -78,6 +80,7 @@ fn optimal_priv_param(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: F
     let sigma_0 = init_priv_param(a, b, delta_Q, epsilon);
     let mut left = sigma_0 * sigma_0;
     let mut right = (((b - a) + (delta_Q / FixedTrait::new(TWO, false))) * delta_Q) / (epsilon - delta_C(a, b, delta_Q, sigma_0).ln());
+
     let mut intervalSize = (left + right) / FixedTrait::new(TWO, false);
 
     return optimal_priv_param_loop(a, b, delta_Q, epsilon, left, right, intervalSize, sigma_0);
