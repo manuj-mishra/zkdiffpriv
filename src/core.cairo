@@ -13,17 +13,30 @@ use traits::{Into, TryInto};
 //     return x.reduce_sum(0, false);
 // }
 
-// Taylor series approximation of the Gauss error function
+// Approximation of the Gauss error function
 fn erf(z: FixedType) -> FixedType {
-    let two = ONE + ONE;
-    let coef = two / PI;
-
-    return FixedTrait::new(coef, false);
+    let two = FixedTrait::new_unscaled(2_u128, false);
+    let coef = two / FixedTrait::new(PI, false).sqrt();
+    let taylor = _erf_sum(z, 5, FixedTrait::new(0_u128, false));
+    return coef * taylor;
 }
 
+// Helper function to calculate Taylor series of erf function
+fn _erf_sum(z: FixedType, n: u128, acc: FixedType) -> FixedType {
+    let div_u128 = (2_u128 * n) + 1_u128;
+    let coef = z / FixedTrait::new_unscaled(div_u128, false);
+    let prod = _erf_prod(z, 3, FixedTrait::new(ONE, false));
+    let new_acc = acc + (coef * prod);
+
+    if (n == 0_u128) {
+        return new_acc;
+    }
+
+    return _erf_sum(z, n - 1_u128, new_acc);
+}
 
 // Helper function to calculate inner product of erf function
-fn _erf_prod(z: FixedType, k: u128, acc:FixedType) -> FixedType {
+fn _erf_prod(z: FixedType, k: u128, acc: FixedType) -> FixedType {
     let z_sq = z * z;
     let neg_z_sq = FixedTrait::from_felt(-1 * z_sq.into());
     let new_acc = (acc * neg_z_sq) / FixedTrait::new_unscaled(k, false);
