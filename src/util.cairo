@@ -1,7 +1,7 @@
 use orion::operators::tensor::implementations::impl_tensor_u32::Tensor_u32;
 use orion::operators::tensor::core::{Tensor, ExtraParams, TensorTrait};
 use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
-use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq};
+use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Div, FP8x23PartialOrd};
 use array::ArrayTrait;
 
 
@@ -23,9 +23,21 @@ fn sum_array_rec(arr: Array<FixedType>, idx: usize, mut sum: FixedType) -> Fixed
     return sum_array_rec(arr, idx + 1, sum);
 }
 
-// fun C(s: FixedType, sigma: FixedType) -> FixedType {
+fn C(a: FixedType, b: FixedType, s: FixedType, sigma: FixedType) -> FixedType {
+    return FixedTrait::new(ONE, false) / (phi((b - s) / sigma) - phi((a - s) / sigma));
+}
 
-// }
+fn delta_C(a: FixedType, b: FixedType, delta_Q: FixedType, sigma: FixedType) -> FixedType {
+    if delta_Q <= ((b - a) / FixedTrait::new(ONE + ONE, false)) {
+        return C(a, b, a, sigma) / C(a, b, a + delta_Q, sigma);
+    }
+
+    return C(a, b, a, sigma) / C(a, b, (b + a) / FixedTrait::new(ONE + ONE, false), sigma);
+}
+
+fn phi(z: FixedType) -> FixedType {
+    return FixedTrait::new(0, false); // TODO
+}
 
 #[test]
 #[available_gas(2000000)]
