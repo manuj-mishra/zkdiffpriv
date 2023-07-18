@@ -2,6 +2,7 @@
 trait MyContractInterface<T> {
     fn name_get(self: @T) -> felt252;
     fn name_set(ref self: T, name: felt252);
+    fn jo(ref self: T, nums: Array<u64>);
 }
 
 #[starknet::contract]
@@ -10,7 +11,7 @@ mod my_contract {
     use zkdiffpriv::utils::sum::lol;
     use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
     use orion::numbers::fixed_point::implementations::impl_8x23::{
-        FP8x23Impl, FP8x23Add, FP8x23AddEq, FP8x23Into, FP8x23Print, FP8x23PartialEq, FP8x23Sub,
+        FP8x23Impl, FP8x23Add, FP8x23AddEq, FP8x23Into, FP8x23PartialEq, FP8x23Sub,
         FP8x23SubEq, FP8x23Mul, FP8x23MulEq, FP8x23Div, FP8x23DivEq, FP8x23PartialOrd, FP8x23Neg
     };
 
@@ -49,6 +50,9 @@ mod my_contract {
             let previous = self.name.read();
             self.name.write(name);
             self.emit(NameChanged { previous, current: name });
+        }
+
+        fn jo(ref self: ContractState, nums: Array<u64>) {
         }
     }
 }

@@ -3,9 +3,6 @@ use orion::operators::tensor::core::{Tensor, ExtraParams, TensorTrait};
 use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
 use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Mul, FP8x23Div, FP8x23PartialOrd};
 use array::ArrayTrait;
-use debug::PrintTrait;
-
-const TWO: u128 = 16777216;
 
 fn all(arr: Tensor<u32>) -> bool {
     return arr.min() == 1;
@@ -26,7 +23,7 @@ fn _sum_array_rec(arr: Array<FixedType>, idx: usize, mut sum: FixedType) -> Fixe
 }
 
 fn lol() {
-    'lol'.print();
+    let x = 2;
 }
 
 // #[test]

@@ -11,5 +11,5 @@ def qnumber_to_uint28(qnumber):
 # Example usage
 qnumber_input = 0x12584197202  # Replace this with your Qnumber input
 result = qnumber_to_uint28(qnumber_input)
-print(f"Qnumber (8.23) input: 0x{qnumber_input:08X}")
-print(f"Normal uint28 output: {result}")
+# print(f"Qnumber (8.23) input: 0x{qnumber_input:08X}")
+# print(f"Normal uint28 output: {result}")

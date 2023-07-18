@@ -1,17 +1,12 @@
+use zkdiffpriv::utils::constants::TWO;
 use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
 use orion::numbers::fixed_point::implementations::impl_8x23::{ONE, PI};
 use orion::numbers::fixed_point::implementations::impl_8x23::{
-    FP8x23Impl, FP8x23Add, FP8x23AddEq, FP8x23Into, FP8x23Print, FP8x23PartialEq, FP8x23Sub,
+    FP8x23Impl, FP8x23Add, FP8x23AddEq, FP8x23Into, FP8x23PartialEq, FP8x23Sub,
     FP8x23SubEq, FP8x23Mul, FP8x23MulEq, FP8x23Div, FP8x23DivEq, FP8x23PartialOrd, FP8x23Neg
 };
 
 use traits::{Into, TryInto};
-use debug::PrintTrait;
-
-
-
-const TWO: u128 = 16777216;
-
 
 
 // CDF of a Gaussian distribution
@@ -105,8 +100,4 @@ fn optimal_priv_param_loop(a: FixedType, b: FixedType, delta_Q: FixedType, epsil
     }
 
     return optimal_priv_param_loop(a, b, delta_Q, epsilon, left, right, intervalSize, sigma_star_sq);
-}
-
-fn main() {
-    'Hello, Scarb!'.print();
 }

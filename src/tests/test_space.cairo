@@ -5,10 +5,9 @@ mod tests {
 
     use array::ArrayTrait;
     use array::SpanTrait;
-    use debug::PrintTrait;
 
     use orion::numbers::fixed_point::core::{FixedType, FixedTrait};
-    use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Mul, FP8x23Div, FP8x23PartialOrd, FP8x23PartialEq, FP8x23Print};
+    use orion::numbers::fixed_point::implementations::impl_8x23::{FP8x23Impl, ONE, PI, FP8x23Add, FP8x23AddEq, FP8x23Sub, FP8x23Mul, FP8x23Div, FP8x23PartialOrd, FP8x23PartialEq};
     use orion::numbers::signed_integer::{integer_trait::IntegerTrait};
 
     #[test]
@@ -28,9 +27,6 @@ mod tests {
         let eps = FixedTrait::new_unscaled(1_u128, false) / FixedTrait::new_unscaled(10_u128, false);
 
         let p = optimal_priv_param(a, b, del_q, eps);
-
-        'This is sigma'.print();
-        p.mag.print()
     }
 
     // We use the 'sum' query as an example
