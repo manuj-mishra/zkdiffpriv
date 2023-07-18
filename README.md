@@ -3,7 +3,7 @@ The first implementation of zero-knowledge differential privacy.
 
 Delta Z is the first Zero Knowledge [Differential Privacy](https://en.wikipedia.org/wiki/Differential_privacy) (ZKDP) protocol.
 
-In 2009, [Netflix identified an opportunity to share their customer database](https://en.wikipedia.org/wiki/Differential_privacy) with the ML community to improve their recommender engine. All data was pseudoanonymous yet hackers were [able to reconstruct private information](https://www.wired.com/2010/03/netflix-cancels-contest/) about individuals using statistical methods.
+In 2009, [Netflix identified an opportunity to share their customer database](https://en.wikipedia.org/wiki/Differential_privacy) with the ML community to improve their recommender engine. All data was pseudoanonymous yet hackers were [able to reconstruct private information](https://www.wired.com/2010/03/netflix-cancels-contest/) about individuals using statistical methods. This is a fundamental limitation given formally by [The Fundamental Law of Information Recovery](https://aircloak.com/diffix-and-the-fundamental-law-of-information-recovery/) / [Reconstruction Attack](https://en.wikipedia.org/wiki/Reconstruction_attack).
 
 Clearly, pseudoanonymity is flawed.
 
