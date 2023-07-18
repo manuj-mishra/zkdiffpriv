@@ -25,6 +25,10 @@ fn _sum_array_rec(arr: Array<FixedType>, idx: usize, mut sum: FixedType) -> Fixe
     return _sum_array_rec(arr, idx + 1, sum);
 }
 
+fn lol() {
+    'lol'.print();
+}
+
 // #[test]
 // #[available_gas(2000000)]
 // fn test_sum_array() {

@@ -1,9 +1,7 @@
 #[cfg(test)]
 mod tests {
-    use zkdiffpriv::utils::{sum_array};
-    use zkdiffpriv::core::{optimal_priv_param};
-    // use util::{sum_array};
-    // use core::{optimal_priv_param};
+    use zkdiffpriv::utils::sum::{sum_array};
+    use zkdiffpriv::dp::dynamic::{optimal_priv_param};
 
     use array::ArrayTrait;
     use array::SpanTrait;
@@ -33,5 +31,10 @@ mod tests {
 
         'This is sigma'.print();
         p.mag.print()
+    }
+
+    // We use the 'sum' query as an example
+    fn get_q(arr: Array<FixedType>) -> FixedType {
+        return sum_array(arr);
     }
 }
