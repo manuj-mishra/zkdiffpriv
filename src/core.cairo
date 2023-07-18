@@ -102,3 +102,7 @@ fn optimal_priv_param_loop(a: FixedType, b: FixedType, delta_Q: FixedType, epsil
 
     return optimal_priv_param_loop(a, b, delta_Q, epsilon, left, right, intervalSize, sigma_star_sq);
 }
+
+fn main() {
+    'Hello, Scarb!'.print();
+}

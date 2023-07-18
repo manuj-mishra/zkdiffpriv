@@ -6,6 +6,7 @@ version = "0.1.0"
 
 [dependencies]
 orion = { git = "https://github.com/gizatechxyz/onnx-cairo" }
+starknet = "2.0.1"
 # alexandria = { git = "https://github.com/keep-starknet-strange/alexandria.git" }
 
 
