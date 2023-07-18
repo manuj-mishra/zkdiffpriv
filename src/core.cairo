@@ -47,13 +47,3 @@ fn _erf_prod(z: FixedType, k: u128, acc: FixedType) -> FixedType {
 
     return _erf_prod(z, k - 1_u128, new_acc);
 }
-
-// fn init_priv_param(a: FixedType, b:FixedType, q:FixedType, eps: FixedType) -> FixedType {
-//     let sq_res =  (q / eps) * (b - a + (q / 2);
-//     return sq_res * sq_res;
-// }
-
-// fn optimal_priv_param(i: Tensor<u32>, w: Tensor<u32>, b: Tensor<u32>) -> Tensor<u32> {
-//     let x = NNTrait::linear(i, w, b);
-//     NNTrait::relu(@x, IntegerTrait::new(0, false))
-// }
