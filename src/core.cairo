@@ -8,6 +8,8 @@ use orion::numbers::fixed_point::implementations::impl_8x23::{
 use debug::PrintTrait;
 use traits::{Into, TryInto};
 
+const TWO: u128 = 16777216;
+
 // // We use the 'sum' query as an example
 // fn get_q(x: Array<u32>) -> Array<u32> {
 //     return x.reduce_sum(0, false);
@@ -54,4 +56,20 @@ fn _erf_prod(z: FixedType, k: u128, acc: FixedType) -> FixedType {
     }
 
     return _erf_prod(z, k - 1_u128, new_acc);
+}
+
+fn C(a: FixedType, b: FixedType, s: FixedType, sigma: FixedType) -> FixedType {
+    return FixedTrait::new(ONE, false) / (normcdf(b, s, sigma) - normcdf(a, s, sigma));
+}
+
+fn delta_C(a: FixedType, b: FixedType, delta_Q: FixedType, sigma: FixedType) -> FixedType {
+    if delta_Q <= ((b - a) / FixedTrait::new(TWO, false)) {
+        return C(a, b, a, sigma) / C(a, b, a + delta_Q, sigma);
+    }
+
+    return C(a, b, a, sigma) / C(a, b, (b + a) / FixedTrait::new(TWO, false), sigma);
+}
+
+fn sigma_0(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: FixedType) -> FixedType {
+    return ((((b - a) + (delta_Q / FixedTrait::new(TWO, false))) * delta_Q) / epsilon).sqrt();
 }

@@ -24,26 +24,6 @@ fn sum_array_rec(arr: Array<FixedType>, idx: usize, mut sum: FixedType) -> Fixed
     return sum_array_rec(arr, idx + 1, sum);
 }
 
-fn C(a: FixedType, b: FixedType, s: FixedType, sigma: FixedType) -> FixedType {
-    return FixedTrait::new(ONE, false) / (phi((b - s) / sigma) - phi((a - s) / sigma));
-}
-
-fn delta_C(a: FixedType, b: FixedType, delta_Q: FixedType, sigma: FixedType) -> FixedType {
-    if delta_Q <= ((b - a) / FixedTrait::new(TWO, false)) {
-        return C(a, b, a, sigma) / C(a, b, a + delta_Q, sigma);
-    }
-
-    return C(a, b, a, sigma) / C(a, b, (b + a) / FixedTrait::new(TWO, false), sigma);
-}
-
-fn sigma_0(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: FixedType) -> FixedType {
-    return ((((b - a) + (delta_Q / FixedTrait::new(TWO, false))) * delta_Q) / epsilon).sqrt();
-}
-
-fn phi(z: FixedType) -> FixedType {
-    return FixedTrait::new(0, false); // TODO
-}
-
 #[test]
 #[available_gas(2000000)]
 fn test_sum_array() {
