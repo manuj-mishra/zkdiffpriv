@@ -70,6 +70,35 @@ fn delta_C(a: FixedType, b: FixedType, delta_Q: FixedType, sigma: FixedType) -> 
     return C(a, b, a, sigma) / C(a, b, (b + a) / FixedTrait::new(TWO, false), sigma);
 }
 
-fn sigma_0(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: FixedType) -> FixedType {
+fn init_priv_param(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: FixedType) -> FixedType {
     return ((((b - a) + (delta_Q / FixedTrait::new(TWO, false))) * delta_Q) / epsilon).sqrt();
+}
+
+fn optimal_priv_param(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: FixedType) -> FixedType {
+    let sigma_0 = init_priv_param(a, b, delta_Q, epsilon);
+    let mut left = sigma_0 * sigma_0;
+    let mut right = (((b - a) + (delta_Q / FixedTrait::new(TWO, false))) * delta_Q) / (epsilon - delta_C(a, b, delta_Q, sigma_0).ln());
+    let mut intervalSize = (left + right) / FixedTrait::new(TWO, false);
+
+    return optimal_priv_param_loop(a, b, delta_Q, epsilon, left, right, intervalSize, sigma_0);
+}
+
+fn optimal_priv_param_loop(a: FixedType, b: FixedType, delta_Q: FixedType, epsilon: FixedType, mut left: FixedType, mut right: FixedType, mut intervalSize: FixedType, mut sigma_star_sq: FixedType) -> FixedType {
+    if intervalSize <= (right - left) {
+        return sigma_star_sq;
+    }
+
+    intervalSize = right - left;
+    sigma_star_sq = (left + right) / FixedTrait::new(TWO, false);
+
+    let arg_cm = (((b - a) + (delta_Q / FixedTrait::new(TWO, false))) * delta_Q) / (epsilon - delta_C(a, b, delta_Q, sigma_star_sq.sqrt()).ln());
+
+    if arg_cm >= sigma_star_sq {
+        left = sigma_star_sq;
+    }
+    if arg_cm <= sigma_star_sq {
+        right = sigma_star_sq;
+    }
+
+    return optimal_priv_param_loop(a, b, delta_Q, epsilon, left, right, intervalSize, sigma_star_sq);
 }
