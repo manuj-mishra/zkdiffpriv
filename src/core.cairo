@@ -12,7 +12,6 @@ use debug::PrintTrait;
 const TWO: u128 = 16777216;
 
 
-
 // CDF of a Gaussian distribution
 fn normcdf(x: FixedType, mu: FixedType, std: FixedType) -> FixedType {
     let z = (x - mu) / (std * FixedTrait::new_unscaled(2_u128, false).sqrt());
@@ -59,8 +58,9 @@ fn C(a: FixedType, b: FixedType, s: FixedType, sigma: FixedType) -> FixedType {
     let diff = normcdf(b, s, sigma) - normcdf(a, s, sigma);
     //TODO: this should not be manual fix
     if diff == (FixedTrait::new(0, false)) {
-        return FixedTrait::new_unscaled(1_u128, false);
+        return FixedTrait::new_unscaled(10000_u128, false);
     }
+    // return FixedTrait::new(ONE, false) / diff;
     return FixedTrait::new(ONE, false);
 }
 

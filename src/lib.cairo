@@ -15,10 +15,15 @@ use core::{optimal_priv_param};
 #[test]
 #[available_gas(1000000000)]
 fn test_lib() {
+
     let mut arr = ArrayTrait::new();
     arr.append(FixedTrait::new_unscaled(1_u128, false));
     arr.append(FixedTrait::new_unscaled(5_u128, false));
     arr.append(FixedTrait::new_unscaled(2_u128, false));
+    arr.append(FixedTrait::new_unscaled(3_u128, false));
+    arr.append(FixedTrait::new_unscaled(6_u128, false));
+    arr.append(FixedTrait::new_unscaled(2_u128, false));
+    arr.append(FixedTrait::new_unscaled(3_u128, false));
     arr.append(FixedTrait::new_unscaled(8_u128, false));
 
     let q = get_q(arr);
@@ -28,7 +33,7 @@ fn test_lib() {
     let del_q = b - a;
     let eps = FixedTrait::new_unscaled(1_u128, false) / FixedTrait::new_unscaled(10_u128, false);
 
-    let p = optimal_priv_param(a, b, del_q, eps);
+    let p = optimal_priv_param(a, b, del_q, eps).sqrt();
 
     'This is sigma'.print();
     p.mag.print()
