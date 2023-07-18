@@ -2,14 +2,8 @@
 name = "zkdiffpriv"
 version = "0.1.0"
 
-# See more keys and their definitions at https://docs.swmansion.com/scarb/docs/reference/manifest
-
 [dependencies]
+starknet = "=2.0.1"
 orion = { git = "https://github.com/gizatechxyz/onnx-cairo" }
-starknet = "2.0.1"
-# alexandria = { git = "https://github.com/keep-starknet-strange/alexandria.git" }
 
-
-# [[bin]]
-# name = "zkdiffprivlib"
-# path = "src/lib.cairo"
+[[target.starknet-contract]]

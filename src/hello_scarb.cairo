@@ -1,62 +1,43 @@
-use starknet::ContractAddress;
-
 #[starknet::interface]
-trait OwnableTrait<T> {
-    fn transfer_ownership(ref self: T, new_owner: ContractAddress);
-    fn get_owner(self: @T) -> ContractAddress;
+trait MyContractInterface<T> {
+    fn name_get(self: @T) -> felt252;
+    fn name_set(ref self: T, name: felt252);
 }
 
 #[starknet::contract]
-mod Ownable {
-    use super::ContractAddress;
-    use starknet::get_caller_address;
+mod my_contract {
+    #[storage]
+    struct Storage {
+        name: felt252,
+    }
 
     #[event]
     #[derive(Drop, starknet::Event)]
     enum Event {
-      OwnershipTransferred1: OwnershipTransferred1,  
+        NameChanged: NameChanged,
     }
 
     #[derive(Drop, starknet::Event)]
-    struct OwnershipTransferred1 {
-        #[key]
-        prev_owner: ContractAddress,
-        #[key]
-        new_owner: ContractAddress,
-    }
-
-    #[storage]
-    struct Storage {
-        owner: ContractAddress,
+    struct NameChanged {
+        previous: felt252,
+        current: felt252,
     }
 
     #[constructor]
-    fn constructor(ref self: ContractState, init_owner: ContractAddress) {
-        self.owner.write(init_owner);
+    fn constructor(ref self: ContractState, name: felt252) {
+        self.name.write(name);
     }
 
     #[external(v0)]
-    impl OwnableImpl of super::OwnableTrait<ContractState> {
-        fn transfer_ownership(ref self: ContractState, new_owner: ContractAddress) {
-            self.only_owner();
-            let prev_owner = self.owner.read();
-            self.owner.write(new_owner);
-            self.emit(Event::OwnershipTransferred1(OwnershipTransferred1 {
-                prev_owner: prev_owner,
-                new_owner: new_owner,
-            }));
+    impl MyContract of super::MyContractInterface<ContractState> {
+        fn name_get(self: @ContractState) -> felt252 {
+            self.name.read()
         }
 
-        fn get_owner(self: @ContractState) -> ContractAddress {
-            self.owner.read()
-        }
-    }
-
-    #[generate_trait]
-    impl PrivateMethods of PrivateMethodsTrait {
-        fn only_owner(self: @ContractState) {
-            let caller = get_caller_address();
-            assert(caller == self.owner.read(), 'Caller is not the owner');
+        fn name_set(ref self: ContractState, name: felt252) {
+            let previous = self.name.read();
+            self.name.write(name);
+            self.emit(NameChanged { previous, current: name });
         }
     }
 }
