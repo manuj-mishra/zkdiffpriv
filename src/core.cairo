@@ -5,15 +5,12 @@ use orion::numbers::fixed_point::implementations::impl_8x23::{
     FP8x23SubEq, FP8x23Mul, FP8x23MulEq, FP8x23Div, FP8x23DivEq, FP8x23PartialOrd, FP8x23Neg
 };
 
-use debug::PrintTrait;
 use traits::{Into, TryInto};
+
 
 const TWO: u128 = 16777216;
 
-// // We use the 'sum' query as an example
-// fn get_q(x: Array<u32>) -> Array<u32> {
-//     return x.reduce_sum(0, false);
-// }
+
 
 // CDF of a Gaussian distribution
 fn normcdf(x: FixedType, mu: FixedType, std: FixedType) -> FixedType {
