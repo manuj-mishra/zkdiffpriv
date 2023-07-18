@@ -13,11 +13,19 @@ use traits::{Into, TryInto};
 //     return x.reduce_sum(0, false);
 // }
 
+// CDF of a Gaussian distribution
+fn normcdf(x: FixedType, mu: FixedType, std: FixedType) -> FixedType {
+    let z = (x - mu) / (std * FixedTrait::new_unscaled(2_u128, false).sqrt());
+    let phi = (FixedTrait::new(ONE, false) + erf(z)) / FixedTrait::new_unscaled(2_u128, false);
+    return phi;
+}
+
+
 // Approximation of the Gauss error function
 fn erf(z: FixedType) -> FixedType {
     let two = FixedTrait::new_unscaled(2_u128, false);
     let coef = two / FixedTrait::new(PI, false).sqrt();
-    let taylor = _erf_sum(z, 5, FixedTrait::new(0_u128, false));
+    let taylor = _erf_sum(z, 5, FixedTrait::new(0, false));
     return coef * taylor;
 }
 
